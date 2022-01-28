@@ -1,0 +1,6 @@
+{
+	"osuExtended": {
+		"extendedHelp": "This command will show you the stats of the indicated player, if you don't indicate one I will check if you have a user in my database."
+	},
+	"osuUserNotFound": "The user you have entered does not exist."
+}

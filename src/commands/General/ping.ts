@@ -1,17 +1,18 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { Command, CommandOptions, type ChatInputCommand } from '@sapphire/framework';
+import type { ChatInputCommand } from '@sapphire/framework';
 import type { CommandInteraction, Message } from 'discord.js';
 import { isMessageInstance } from '#lib/utils';
+import { BaleadaCommand } from '#lib/structure/commands/BaleadaCommand';
 
-@ApplyOptions<CommandOptions>({
+@ApplyOptions<BaleadaCommand.Options>({
 	description: 'Check the bot latency.',
 	chatInputCommand: {
 		register: true,
-		guildIds: ['659796438896607262', '765648185858588674', '858410190414938143'],
-		idHints: ['932433683703541801']
+		guildIds: ['765648185858588674'],
+		idHints: ['936691124595208293']
 	}
 })
-export class UserCommand extends Command {
+export class UserCommand extends BaleadaCommand {
 	public override async chatInputRun(...[interaction]: Parameters<ChatInputCommand['chatInputRun']>) {
 		const msg = await interaction.reply({ content: ' Ping?', ephemeral: true, fetchReply: true });
 

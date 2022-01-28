@@ -8,7 +8,8 @@
 	"imports": {
 		"#utils": "./dist/lib/utils.js",
 		"#lib/*": "./dist/lib/*.js",
-		"#root/*": "./dist/*.js"
+		"#root/*": "./dist/*.js",
+		"#lib/env": "./dist/lib/env/index.js"
 	},
 	"scripts": {
 		"build": "tsup",
@@ -30,12 +31,14 @@
 		"@sapphire/discord.js-utilities": "^4.4.0",
 		"@sapphire/fetch": "^2.0.4",
 		"@sapphire/framework": "next",
+		"@sapphire/plugin-i18next": "^2.2.3",
 		"@sapphire/plugin-logger": "^2.1.3",
 		"@sapphire/time-utilities": "^1.5.2",
 		"@sapphire/type": "^2.1.2",
 		"@sapphire/utilities": "^3.2.1",
 		"discord.js": "^13.6.0",
 		"dotenv-cra": "^3.0.2",
+		"lexure": "^0.17.0",
 		"reflect-metadata": "^0.1.13",
 		"tsup": "^5.11.11"
 	},
@@ -43,6 +46,7 @@
 		"@commitlint/cli": "^16.1.0",
 		"@commitlint/config-conventional": "^16.0.0",
 		"@sapphire/eslint-config": "^4.0.11",
+		"@sapphire/plugin-hmr": "^1.1.1",
 		"@sapphire/prettier-config": "^1.2.9",
 		"@sapphire/ts-config": "^3.1.8",
 		"@types/eslint": "^8",

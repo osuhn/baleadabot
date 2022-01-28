@@ -1,14 +1,15 @@
+import { BaleadaCommand } from '#lib/structure/commands/BaleadaCommand';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ApplicationCommandRegistry, Command, CommandOptions, type ChatInputCommand } from '@sapphire/framework';
+import type { ApplicationCommandRegistry, ChatInputCommand } from '@sapphire/framework';
 import { Type } from '@sapphire/type';
 import { codeBlock, isThenable } from '@sapphire/utilities';
 import { inspect } from 'util';
 
-@ApplyOptions<CommandOptions>({
+@ApplyOptions<BaleadaCommand.Options>({
 	description: 'Evals any JavaScript code',
 	preconditions: ['OwnerOnly']
 })
-export class UserCommand extends Command {
+export class UserCommand extends BaleadaCommand {
 	public override registerApplicationCommands(registry: ApplicationCommandRegistry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -21,8 +22,8 @@ export class UserCommand extends Command {
 					.addBooleanOption((option) => option.setName('silent').setDescription('Whether to suppress output'))
 					.addIntegerOption((option) => option.setName('depth').setDescription('The maximum depth of the result')),
 			{
-				guildIds: ['659796438896607262', '765648185858588674', '858410190414938143'],
-				idHints: ['932433682482991155']
+				guildIds: ['765648185858588674'],
+				idHints: ['936691124129661008']
 			}
 		);
 	}
