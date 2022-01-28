@@ -1,16 +1,15 @@
 {
-	"name": "nashe",
+	"name": "baleadabot",
 	"version": "1.0.0",
 	"main": "dist/index.js",
 	"author": "@chikoshidori",
-	"license": "UNLICENSE",
+	"license": "MIT",
 	"type": "module",
 	"imports": {
 		"#utils": "./dist/lib/utils.js",
 		"#lib/*": "./dist/lib/*.js",
 		"#root/*": "./dist/*.js"
 	},
-	"sideEffects": false,
 	"scripts": {
 		"build": "tsup",
 		"start": "node --enable-source-maps dist/index.js",

@@ -1,1 +1,12 @@
-# Time spent [![wakatime](https://wakatime.com/badge/user/d868ec81-595c-4625-8b58-330fda41b454/project/1b3c3ba6-01d3-4524-bcbd-aa94716a190e.svg)](https://wakatime.com/badge/user/d868ec81-595c-4625-8b58-330fda41b454/project/1b3c3ba6-01d3-4524-bcbd-aa94716a190e)
+<div align="center">
+
+<img height="150" src="https://www.hondurastips.hn/wp-content/uploads/2018/05/baleada-dnc.gif" alt="BaleadaBot">
+
+# [BaleadaBot]
+
+**A bot made with tools made by [Sapphire]**
+
+</div>
+
+[baleadabot]: https://discord.com/oauth2/authorize?client_id=639672609222426628&permissions=8&scope=bot%20applications.commands
+[sapphire]: https://github.com/sapphiredev/
