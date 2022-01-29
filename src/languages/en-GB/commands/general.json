@@ -1,1 +1,7 @@
-{}
+{
+	"pingExtended": {
+		"extendedHelp": ""
+	},
+	"pingFailed": "Failed to retrieve ping :(",
+	"pingPong": "Pong 🏓! (Roundtrip took: **{{diff, localeString}}**ms. Heartbeat: **{{ping, localeString}}**ms."
+}

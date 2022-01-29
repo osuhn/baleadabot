@@ -1,15 +1,14 @@
-import { BaleadaCommand } from '#lib/structure/commands/BaleadaCommand';
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ApplicationCommandRegistry, ChatInputCommand } from '@sapphire/framework';
+import { ApplicationCommandRegistry, ChatInputCommand, Command } from '@sapphire/framework';
 import { Type } from '@sapphire/type';
 import { codeBlock, isThenable } from '@sapphire/utilities';
 import { inspect } from 'util';
 
-@ApplyOptions<BaleadaCommand.Options>({
+@ApplyOptions<Command.Options>({
 	description: 'Evals any JavaScript code',
 	preconditions: ['OwnerOnly']
 })
-export class UserCommand extends BaleadaCommand {
+export class UserCommand extends Command {
 	public override registerApplicationCommands(registry: ApplicationCommandRegistry) {
 		registry.registerChatInputCommand(
 			(builder) =>

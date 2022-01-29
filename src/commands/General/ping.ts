@@ -1,8 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
 import type { CommandInteraction, Message } from 'discord.js';
-import { isMessageInstance } from '#lib/utils';
-import { BaleadaCommand } from '#lib/structure/commands/BaleadaCommand';
+import { isInteractionInstance, isMessageInstance } from '#lib/utils';
+import { BaleadaCommand, CommandParameteres } from '#lib/structure/commands/BaleadaCommand';
 
 @ApplyOptions<BaleadaCommand.Options>({
 	description: 'Check the bot latency.',
@@ -13,21 +12,25 @@ import { BaleadaCommand } from '#lib/structure/commands/BaleadaCommand';
 	}
 })
 export class UserCommand extends BaleadaCommand {
-	public override async chatInputRun(...[interaction]: Parameters<ChatInputCommand['chatInputRun']>) {
-		const msg = await interaction.reply({ content: ' Ping?', ephemeral: true, fetchReply: true });
-
-		// console.log(await Promise.all(this.container.client.application!.commands.cache.map((w) => w.delete())));
+	public override async handle(...[interaction, args]: CommandParameteres) {
+		const msg = await interaction.reply({ content: 'Ping?', ephemeral: true, fetchReply: true });
+		const isInteraction = isInteractionInstance(interaction);
 
 		if (isMessageInstance(msg)) {
 			const { diff, ping } = this.getPing(msg, interaction);
+			const content = args.t('commands/general:pingPong', {
+				diff,
+				ping
+			});
 
-			return interaction.editReply(`Pong 🏓! (Roundtrip took: ${diff}ms. Heartbeat: ${ping}ms.)`);
+			return isInteraction ? interaction.editReply(content) : msg.edit(content);
 		}
+		const failedContent = args.t('command/general:pingFailed');
 
-		return interaction.editReply('Failed to retrieve ping :(');
+		return isInteraction ? interaction.editReply(failedContent) : interaction.edit(failedContent);
 	}
 
-	private getPing(message: Message, interaction: CommandInteraction) {
+	private getPing(message: Message, interaction: CommandInteraction | Message) {
 		const diff = (message.editedTimestamp || message.createdTimestamp) - interaction.createdTimestamp;
 		const ping = Math.round(this.container.client.ws.ping);
 
