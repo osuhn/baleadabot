@@ -828,6 +828,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/ws@npm:^8.2.3":
+  version: 8.2.3
+  resolution: "@types/ws@npm:8.2.3"
+  dependencies:
+    "@types/node": "*"
+  checksum: 94e949ef66909334eb8d77079a28ce8fcea8780295eadab1bccdbb85adc0534d96d9a61910a80720769c6019e7bfaba90cea6f95f58e93de135b766074aa53cb
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/eslint-plugin@npm:^5.11.0":
   version: 5.11.0
   resolution: "@typescript-eslint/eslint-plugin@npm:5.11.0"
@@ -1351,14 +1360,14 @@ __metadata:
     "@sapphire/utilities": ^3.3.0
     "@types/eslint": ^8
     "@types/node": ^17.0.8
-    "@types/ws": ^8.2.2
+    "@types/ws": ^8.2.3
     "@typescript-eslint/eslint-plugin": ^5.12.0
     "@typescript-eslint/parser": ^5.12.0
     cz-conventional-changelog: ^3.3.0
     discord.js: ^13.6.0
     dotenv-cra: ^3.0.2
     eslint: 8.9.0
-    eslint-config-prettier: ^8.3.0
+    eslint-config-prettier: ^8.4.0
     eslint-plugin-prettier: ^4.0.0
     husky: ^7.0.4
     lexure: ^0.17.0
@@ -2639,6 +2648,17 @@ __metadata:
   bin:
     eslint-config-prettier: bin/cli.js
   checksum: df4cea3032671995bb5ab07e016169072f7fa59f44a53251664d9ca60951b66cdc872683b5c6a3729c91497c11490ca44a79654b395dd6756beb0c3903a37196
+  languageName: node
+  linkType: hard
+
+"eslint-config-prettier@npm:^8.4.0":
+  version: 8.4.0
+  resolution: "eslint-config-prettier@npm:8.4.0"
+  peerDependencies:
+    eslint: ">=7.0.0"
+  bin:
+    eslint-config-prettier: bin/cli.js
+  checksum: ee8dc343f1fed15dc0658e190a966cc23644477f2331a7f56ae2bb79dd74892e3cde8ea5c142e7a3329a8291a1de041e13ca96e54d0c85ff4a2aba13390c5f10
   languageName: node
   linkType: hard
 
