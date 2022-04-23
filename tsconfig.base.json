@@ -4,6 +4,6 @@
 		"lib": ["ESNext", "DOM"],
 		"target": "ESNext",
 		"module": "ESNext",
-		"noImplicitOverride": true
+		"emitDecoratorMetadata": false
 	}
 }

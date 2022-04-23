@@ -4,9 +4,9 @@
 
 # [BaleadaBot]
 
-**A bot made with tools made by [Sapphire]**
+**A bot made with tools made by [Skyra]**
 
 </div>
 
 [baleadabot]: https://discord.com/oauth2/authorize?client_id=639672609222426628&permissions=8&scope=bot%20applications.commands
-[sapphire]: https://github.com/sapphiredev/
+[skyra]: https://github.com/skyra-project/
