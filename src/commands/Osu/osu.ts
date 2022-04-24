@@ -11,13 +11,14 @@ import { APIApplicationCommandAutocompleteInteraction, MessageFlags } from 'disc
 		.setName('osu')
 		.setDescription('Display statics of an user')
 		.addStringOption((option) => option.setName('username').setDescription('username or id').setAutocomplete(true))
+		.addStringOption((option) => option.setName('mode').setDescription('mode').setAutocomplete(true))
 )
 @RestrictGuildIds(getGuilds())
 export class UserCommand extends OsuCommand {
+	private readonly modes: OsuCommand.OsuModes[] = ['osu', 'taiko', 'fruits', 'mania'];
+
 	public override async autocompleteRun(interaction: APIApplicationCommandAutocompleteInteraction, args: AutocompleteInteractionArguments<Args>) {
 		const { guild_id: guildId } = interaction;
-
-		console.log(interaction);
 
 		switch (args.focused) {
 			case 'username': {
@@ -25,11 +26,22 @@ export class UserCommand extends OsuCommand {
 					args.username = '2';
 				}
 
-				const search = await searchForAnUser(args.username);
-				console.log(search);
+				const search = await searchForAnUser(args.username).catch(() => undefined);
+
+				if (!search) return this.autocompleteNoResults();
 
 				return this.autocomplete({
 					choices: search.users.map((u) => ({ name: u.username, value: u.id }))
+				});
+			}
+
+			case 'mode': {
+				if (!isNullishOrEmpty(guildId) && isNullishOrEmpty(args.mode)) {
+					args.mode = 'osu';
+				}
+
+				return this.autocomplete({
+					choices: this.modes.map((m) => ({ name: m, value: m }))
 				});
 			}
 
@@ -39,8 +51,11 @@ export class UserCommand extends OsuCommand {
 		}
 	}
 
-	public override chatInputRun(interaction: OsuCommand.Interaction, { username }: Args): OsuCommand.Response {
-		console.log(interaction.guild_locale, username);
+	public override chatInputRun(_interaction: OsuCommand.Interaction, { username: userId, mode }: Args): OsuCommand.Response {
+		const user = this.fetchUser({ userId, mode });
+
+		console.log(user);
+
 		return this.message({
 			content: LanguageKeys.UserNotFound,
 			flags: MessageFlags.Ephemeral
@@ -50,4 +65,5 @@ export class UserCommand extends OsuCommand {
 
 interface Args {
 	username: string;
+	mode: OsuCommand.OsuModes;
 }

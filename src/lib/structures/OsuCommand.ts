@@ -7,9 +7,7 @@ export abstract class OsuCommand extends Command {
 	}
 
 	protected async fetchUser({ userId, mode }: OsuCommand.FetchUserOptions) {
-		const result = await v2.user.get(userId, mode);
-
-		console.log(result);
+		return v2.user.get(userId, mode);
 	}
 }
 
@@ -24,5 +22,5 @@ export namespace OsuCommand {
 		mode: OsuModes;
 	}
 
-	type OsuModes = 'osu' | 'taiko' | 'fruits' | 'mania';
+	export type OsuModes = 'osu' | 'taiko' | 'fruits' | 'mania';
 }

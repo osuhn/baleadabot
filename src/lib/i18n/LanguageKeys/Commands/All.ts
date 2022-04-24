@@ -1,1 +1,1 @@
-export * from '#lib/i18n/LanguageKeys/Commands/Osu';
+export * from '#lib/i18n/LanguageKeys/commands/Osu';
