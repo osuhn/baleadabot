@@ -16,5 +16,6 @@ declare module '@skyra/env-utilities' {
 
 		OSU_CLIENT_SECRET: string;
 		OSU_CLIENT_ID: IntegerString;
+		OSU_COOKIE: string;
 	}
 }
