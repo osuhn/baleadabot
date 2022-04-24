@@ -1,5 +1,5 @@
 import { fetch } from '@sapphire/fetch';
-import { cache_token } from 'osu-api-extended/dist/utility/auth';
+import { cache_token } from 'osu-api-extended/dist/utility/auth.js';
 
 export async function searchForAnUser(nameOrId: string): Promise<UsersFound> {
 	const result = await fetch<SearchResult>(`https://osu.ppy.sh/home/quick-search?query=${nameOrId}`, {
