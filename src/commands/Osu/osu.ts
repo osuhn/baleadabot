@@ -27,12 +27,12 @@ export class UserCommand extends OsuCommand {
 				}
 
 				const search = await searchForAnUser(args.username).catch(() => undefined);
-
 				if (!search) return this.autocompleteNoResults();
 
-				return this.autocomplete({
-					choices: search.users.map((u) => ({ name: u.username, value: u.id }))
-				});
+				const choices = search.users.map(({ username: name, id: value }) => ({ name, value }));
+				console.log(choices);
+
+				return this.autocomplete({ choices });
 			}
 
 			case 'mode': {
@@ -40,9 +40,9 @@ export class UserCommand extends OsuCommand {
 					args.mode = 'osu';
 				}
 
-				return this.autocomplete({
-					choices: this.modes.map((m) => ({ name: m, value: m }))
-				});
+				const choices = this.modes.map((m) => ({ name: m, value: m }));
+
+				return this.autocomplete({ choices });
 			}
 
 			default: {
