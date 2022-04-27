@@ -1,4 +1,5 @@
 import type { ArrayString, IntegerString } from '@skyra/env-utilities';
+import type { OsuUser } from './types/declarations/osu';
 
 declare module '@skyra/env-utilities' {
 	interface Env {
@@ -18,4 +19,8 @@ declare module '@skyra/env-utilities' {
 		OSU_CLIENT_ID: IntegerString;
 		OSU_COOKIE: string;
 	}
+}
+
+declare module 'osu-api-extended/dist/types/v2' {
+	interface user_data extends OsuUser {}
 }

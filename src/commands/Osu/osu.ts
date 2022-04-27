@@ -1,27 +1,36 @@
 import { LanguageKeys } from '#lib/i18n/LanguageKeys';
 import { OsuCommand } from '#lib/structures/OsuCommand';
+import { errorEmbed, successEmbed } from '#lib/utils/embeds';
 import { searchForAnUser } from '#lib/utils/osu';
 import { getGuilds } from '#lib/utils/util';
-import { isNullishOrEmpty } from '@sapphire/utilities';
+import { Awaitable, isNullishOrEmpty } from '@sapphire/utilities';
 import { AutocompleteInteractionArguments, RegisterCommand, RestrictGuildIds } from '@skyra/http-framework';
-import { APIApplicationCommandAutocompleteInteraction, MessageFlags } from 'discord-api-types/v10';
+import { resolveUserKey } from '@skyra/http-framework-i18n';
+import { APIApplicationCommandAutocompleteInteraction, APIApplicationCommandAutocompleteResponse, MessageFlags } from 'discord-api-types/v10';
+import type { user_data } from 'osu-api-extended/dist/types/v2';
 
 @RegisterCommand((builder) =>
 	builder
 		.setName('osu')
 		.setDescription('Display statics of an user')
 		.addStringOption((option) => option.setName('username').setDescription('username or id').setAutocomplete(true))
-		.addStringOption((option) => option.setName('mode').setDescription('mode').setAutocomplete(true))
+		.addStringOption((option) =>
+			option
+				.setName('mode')
+				.setDescription('mode')
+				.setChoices(...UserCommand.modes.map((m) => ({ name: m, value: m })))
+		)
 )
 @RestrictGuildIds(getGuilds())
 export class UserCommand extends OsuCommand {
-	private readonly modes: OsuCommand.OsuModes[] = ['osu', 'taiko', 'fruits', 'mania'];
-
-	public override async autocompleteRun(interaction: APIApplicationCommandAutocompleteInteraction, args: AutocompleteInteractionArguments<Args>) {
+	public override async autocompleteRun(
+		interaction: APIApplicationCommandAutocompleteInteraction,
+		args: AutocompleteInteractionArguments<ArgsAutoComplete>
+	) {
 		const { guild_id: guildId } = interaction;
 
-		switch (args.focused) {
-			case 'username': {
+		const options: Record<keyof ArgsAutoComplete, () => Awaitable<APIApplicationCommandAutocompleteResponse>> = {
+			username: async (): Promise<APIApplicationCommandAutocompleteResponse> => {
 				if (!isNullishOrEmpty(guildId) && isNullishOrEmpty(args.username)) {
 					args.username = '2';
 				}
@@ -30,40 +39,53 @@ export class UserCommand extends OsuCommand {
 				if (!search) return this.autocompleteNoResults();
 
 				const choices = search.users.map(({ username: name, id: value }) => ({ name, value }));
-				console.log(choices);
 
 				return this.autocomplete({ choices });
 			}
+		};
 
-			case 'mode': {
-				if (!isNullishOrEmpty(guildId) && isNullishOrEmpty(args.mode)) {
-					args.mode = 'osu';
-				}
+		const selected = options[args.focused!];
+		const result = selected ? await selected() : this.autocompleteNoResults();
 
-				const choices = this.modes.map((m) => ({ name: m, value: m }));
-
-				return this.autocomplete({ choices });
-			}
-
-			default: {
-				return this.autocompleteNoResults();
-			}
-		}
+		return result;
 	}
 
-	public override chatInputRun(_interaction: OsuCommand.Interaction, { username: userId, mode }: Args): OsuCommand.Response {
-		const user = this.fetchUser({ userId, mode });
+	public override chatInputRun(interaction: OsuCommand.Interaction, { username: userId, mode }: Args): OsuCommand.Response {
+		return this.fetchUser({ userId, mode }).then((user) => this.handleCommand(interaction, user));
+	}
 
-		console.log(user);
+	private handleCommand(interaction: OsuCommand.Interaction, user: user_data): OsuCommand.Response {
+		if (!user)
+			return this.message({
+				embeds: [
+					errorEmbed({
+						interaction,
+						options: {
+							description: resolveUserKey(interaction, LanguageKeys.UserNotFound)
+						}
+					})
+				],
+				flags: MessageFlags.Ephemeral
+			});
 
 		return this.message({
-			content: LanguageKeys.UserNotFound,
-			flags: MessageFlags.Ephemeral
+			embeds: [
+				successEmbed({
+					interaction,
+					options: {
+						description: `${user.username}'s stats`
+					}
+				})
+			]
 		});
 	}
+
+	private static modes: OsuCommand.OsuModes[] = ['osu', 'taiko', 'fruits', 'mania'];
 }
 
 interface Args {
 	username: string;
 	mode: OsuCommand.OsuModes;
 }
+
+type ArgsAutoComplete = Omit<Args, 'mode'>;
