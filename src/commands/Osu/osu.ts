@@ -73,6 +73,7 @@ export class UserCommand extends OsuCommand {
 				successEmbed({
 					interaction,
 					options: {
+						thumbnail: { url: user.avatar_url },
 						description: `${user.username}'s stats`
 					}
 				})
