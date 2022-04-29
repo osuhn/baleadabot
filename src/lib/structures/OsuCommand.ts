@@ -16,6 +16,7 @@ export namespace OsuCommand {
 
 	export type Interaction = Command.Interaction;
 	export type Response = Command.Response;
+	export type MessageResponseResult = Command.MessageResponseResult;
 
 	export interface FetchUserOptions {
 		userId: string;

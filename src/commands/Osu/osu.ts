@@ -7,7 +7,6 @@ import { Awaitable, isNullishOrEmpty } from '@sapphire/utilities';
 import { AutocompleteInteractionArguments, RegisterCommand, RestrictGuildIds } from '@skyra/http-framework';
 import { resolveUserKey } from '@skyra/http-framework-i18n';
 import { APIApplicationCommandAutocompleteInteraction, APIApplicationCommandAutocompleteResponse, MessageFlags } from 'discord-api-types/v10';
-import type { user_data } from 'osu-api-extended/dist/types/v2';
 
 @RegisterCommand((builder) =>
 	builder
@@ -50,11 +49,12 @@ export class UserCommand extends OsuCommand {
 		return result;
 	}
 
-	public override chatInputRun(interaction: OsuCommand.Interaction, { username: userId, mode }: Args): OsuCommand.Response {
-		return this.fetchUser({ userId, mode }).then((user) => this.handleCommand(interaction, user));
-	}
+	public override async chatInputRun(
+		interaction: OsuCommand.Interaction,
+		{ username: userId, mode = 'osu' }: Args
+	): Promise<OsuCommand.MessageResponseResult> {
+		const user = await this.fetchUser({ userId, mode });
 
-	private handleCommand(interaction: OsuCommand.Interaction, user: user_data): OsuCommand.Response {
 		if (!user)
 			return this.message({
 				embeds: [
