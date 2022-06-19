@@ -29,7 +29,7 @@
 		"@sapphire/fetch": "^2.3.1",
 		"@sapphire/result": "^1.1.1",
 		"@sapphire/utilities": "^3.6.2",
-		"@skyra/env-utilities": "^0.0.7",
+		"@skyra/env-utilities": "^1.0.1",
 		"@skyra/http-framework": "^0.3.7",
 		"@skyra/http-framework-i18n": "^0.1.2",
 		"@skyra/start-banner": "^0.0.4",
