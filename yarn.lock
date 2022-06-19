@@ -706,10 +706,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@skyra/start-banner@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "@skyra/start-banner@npm:0.0.4"
-  checksum: a0708f85507368ace009e933a6092f96690c09b10a0b29b26e96b8dcd332e6cfd5789fa958add7141eb4511c1672711a77d41b74aa9ba46b9844e8c80fe33fe8
+"@skyra/start-banner@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@skyra/start-banner@npm:1.0.1"
+  checksum: a172c8cd85b0ccd43628f73c158c61a3998e904cd9ba9113ceb9663cd4afb7b8cf97daecd111450b71908a7f7884b30b081d924871afe2d5bfd5a33ced124e0b
   languageName: node
   linkType: hard
 
@@ -1412,7 +1412,7 @@ __metadata:
     "@skyra/env-utilities": ^1.0.1
     "@skyra/http-framework": ^0.3.7
     "@skyra/http-framework-i18n": ^0.1.2
-    "@skyra/start-banner": ^0.0.4
+    "@skyra/start-banner": ^1.0.1
     "@types/eslint": ^8.4.2
     "@types/node": ^17.0.25
     "@types/ws": ^8.5.3
