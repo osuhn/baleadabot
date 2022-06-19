@@ -639,12 +639,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@skyra/env-utilities@npm:^0.0.7":
-  version: 0.0.7
-  resolution: "@skyra/env-utilities@npm:0.0.7"
+"@skyra/env-utilities@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@skyra/env-utilities@npm:1.0.1"
   dependencies:
     dotenv-cra: ^3.0.2
-  checksum: 1aa83387feabf4732a4437a2b65ce21551d9b5d14aef4a755b12a57cd6aee22d4e14aef5789bf646fb2e4bff17c0e6a8ce8daf40a0a3555cad0f8d4ac395c389
+  checksum: d1114c221c703b8fc965eea8880a2958b743168245874f71010b99e46c6de6ad98bc3197123c5d27188f89782a27277b62e2f9352e5bf2930444482b52184ad5
   languageName: node
   linkType: hard
 
@@ -1409,7 +1409,7 @@ __metadata:
     "@sapphire/result": ^1.1.1
     "@sapphire/ts-config": ^3.3.4
     "@sapphire/utilities": ^3.6.2
-    "@skyra/env-utilities": ^0.0.7
+    "@skyra/env-utilities": ^1.0.1
     "@skyra/http-framework": ^0.3.7
     "@skyra/http-framework-i18n": ^0.1.2
     "@skyra/start-banner": ^0.0.4
