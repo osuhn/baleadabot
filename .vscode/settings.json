@@ -1,0 +1,48 @@
+{
+	"[javascript][json][jsonc][typescript][typescriptreact][yaml]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[dotenv][shellscript][ignore]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"prettier.singleQuote": true,
+
+	// TypeScript stuff
+	"typescript.implementationsCodeLens.enabled": true,
+	"typescript.inlayHints.enumMemberValues.enabled": true,
+	"typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+	"typescript.inlayHints.parameterNames.enabled": "literals",
+	"typescript.inlayHints.parameterTypes.enabled": true,
+	"typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+	"typescript.inlayHints.variableTypes.enabled": false,
+	"typescript.referencesCodeLens.enabled": false,
+	"typescript.referencesCodeLens.showOnAllFunctions": true,
+	"typescript.suggest.completeFunctionCalls": true,
+	"typescript.preferences.importModuleSpecifier": "non-relative",
+	"typescript.tsdk": "node_modules\\typescript\\lib",
+
+	// Editor stuff
+	"editor.bracketPairColorization.enabled": true,
+	"editor.guides.bracketPairs": true,
+	"editor.guides.bracketPairsHorizontal": true,
+	"editor.quickSuggestions": {
+		"comments": "on",
+		"strings": "on",
+		"other": "on"
+	},
+	"editor.inlineSuggest.enabled": true,
+	"editor.formatOnSave": true,
+	"editor.tabSize": 4,
+	"editor.useTabStops": false,
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": true,
+	"files.eol": "\n",
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/bower_components": true,
+		"**/*.code-search": true,
+		"**/.yarn": true,
+		"**/dist/": true,
+		"**/.git/": true
+	}
+}

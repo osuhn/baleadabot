@@ -30,9 +30,7 @@ export class UserCommand extends OsuCommand {
 
 		const options: Record<keyof ArgsAutoComplete, () => Awaitable<APIApplicationCommandAutocompleteResponse>> = {
 			username: async (): Promise<APIApplicationCommandAutocompleteResponse> => {
-				if (!isNullishOrEmpty(guildId) && isNullishOrEmpty(args.username)) {
-					args.username = '2';
-				}
+				if (!isNullishOrEmpty(guildId) && isNullishOrEmpty(args.username)) args.username = '2';
 
 				const search = await searchForAnUser(args.username).catch(() => undefined);
 				if (!search) return this.autocompleteNoResults();
