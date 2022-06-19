@@ -3,16 +3,22 @@ import { OsuCommand } from '#lib/structures/OsuCommand';
 import { errorEmbed, successEmbed } from '#lib/utils/embeds';
 import { searchForAnUser } from '#lib/utils/osu';
 import { getGuilds } from '#lib/utils/util';
-import { Awaitable, isNullishOrEmpty } from '@sapphire/utilities';
+import { isNullishOrEmpty } from '@sapphire/utilities';
 import { AutocompleteInteractionArguments, RegisterCommand, RestrictGuildIds } from '@skyra/http-framework';
 import { resolveUserKey } from '@skyra/http-framework-i18n';
-import { APIApplicationCommandAutocompleteInteraction, APIApplicationCommandAutocompleteResponse, MessageFlags } from 'discord-api-types/v10';
+import { APIApplicationCommandAutocompleteInteraction, MessageFlags } from 'discord-api-types/v10';
 
 @RegisterCommand((builder) =>
 	builder
 		.setName('osu')
 		.setDescription('Display statics of an user')
-		.addStringOption((option) => option.setName('username').setDescription('username or id').setAutocomplete(true))
+		.setDMPermission(false)
+		.addStringOption((option) =>
+			option //
+				.setName('username')
+				.setDescription('username or id')
+				.setAutocomplete(true)
+		)
 		.addStringOption((option) =>
 			option
 				.setName('mode')
@@ -27,24 +33,16 @@ export class UserCommand extends OsuCommand {
 		args: AutocompleteInteractionArguments<ArgsAutoComplete>
 	) {
 		const { guild_id: guildId } = interaction;
+		if (args.focused !== 'username') return this.autocompleteNoResults();
 
-		const options: Record<keyof ArgsAutoComplete, () => Awaitable<APIApplicationCommandAutocompleteResponse>> = {
-			username: async (): Promise<APIApplicationCommandAutocompleteResponse> => {
-				if (!isNullishOrEmpty(guildId) && isNullishOrEmpty(args.username)) args.username = '2';
+		if (!isNullishOrEmpty(guildId) && isNullishOrEmpty(args.username)) args.username = '2';
 
-				const search = await searchForAnUser(args.username).catch(() => undefined);
-				if (!search) return this.autocompleteNoResults();
+		const search = await searchForAnUser(args.username).catch(() => undefined);
+		if (!search) return this.autocompleteNoResults();
 
-				const choices = search.users.map(({ username: name, id: value }) => ({ name, value }));
+		const choices = search.users.map(({ username: name, id: value }) => ({ name, value }));
 
-				return this.autocomplete({ choices });
-			}
-		};
-
-		const selected = options[args.focused!];
-		const result = selected ? await selected() : this.autocompleteNoResults();
-
-		return result;
+		return this.autocomplete({ choices });
 	}
 
 	public override async chatInputRun(
@@ -55,27 +53,12 @@ export class UserCommand extends OsuCommand {
 
 		if (!user)
 			return this.message({
-				embeds: [
-					errorEmbed({
-						interaction,
-						options: {
-							description: resolveUserKey(interaction, LanguageKeys.UserNotFound)
-						}
-					})
-				],
+				embeds: [errorEmbed({ interaction, options: { description: resolveUserKey(interaction, LanguageKeys.UserNotFound) } })],
 				flags: MessageFlags.Ephemeral
 			});
 
 		return this.message({
-			embeds: [
-				successEmbed({
-					interaction,
-					options: {
-						thumbnail: { url: user.avatar_url },
-						description: `${user.username}'s stats`
-					}
-				})
-			]
+			embeds: [successEmbed({ interaction, options: { thumbnail: { url: user.avatar_url }, description: `${user.username}'s stats` } })]
 		});
 	}
 

@@ -1139,7 +1139,7 @@ __metadata:
     eslint-plugin-prettier: ^4.0.0
     husky: ^8.0.1
     lint-staged: ^13.0.2
-    osu-api-extended: ^2.5.6
+    osu-api-extended: 2.1.5
     prettier: ^2.7.1
     pretty-quick: ^3.1.3
     standard-version: ^9.5.0
@@ -4497,14 +4497,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"osu-api-extended@npm:^2.5.6":
-  version: 2.5.6
-  resolution: "osu-api-extended@npm:2.5.6"
+"osu-api-extended@npm:2.1.5":
+  version: 2.1.5
+  resolution: "osu-api-extended@npm:2.1.5"
   dependencies:
     lzma-native: ^8.0.1
     node-osr: ^1.2.1
     open: ^8.4.0
-  checksum: c9dda7b6c4f209c6e981b3d6e42c6cc0f8c7e376d57ec3efb1b58db4040291a232b32678b5cfa589936699ad46656440bee6a6dba040b790dd2eb2344984b505
+  checksum: ac9d88304364295dc8eb49e691ec420b89f39e2949a9538a62f15e2ddd77966f108891f8ac735a0fc1059ea79871e3f36b692be710ab3337de56945dd12665f7
   languageName: node
   linkType: hard
 
