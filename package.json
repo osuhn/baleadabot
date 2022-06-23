@@ -24,13 +24,13 @@
 		"prepare": "husky install .github/husky"
 	},
 	"dependencies": {
-		"@discordjs/builders": "^0.16.0-dev.1655640244-358c3f4",
+		"@discordjs/builders": "0.16.0-dev.1655640244-358c3f4",
 		"@sapphire/fetch": "^2.4.0",
 		"@sapphire/result": "^1.1.1",
 		"@sapphire/utilities": "^3.6.2",
 		"@skyra/env-utilities": "^1.0.1",
 		"@skyra/http-framework": "^0.5.5",
-		"@skyra/http-framework-i18n": "^0.1.10",
+		"@skyra/http-framework-i18n": "^0.1.11",
 		"@skyra/start-banner": "^1.0.1",
 		"discord-api-types": "0.33.5",
 		"osu-api-extended": "2.1.5"
@@ -43,8 +43,8 @@
 		"@sapphire/prettier-config": "^1.4.3",
 		"@sapphire/ts-config": "^3.3.4",
 		"@types/node": "^18.0.0",
-		"@typescript-eslint/eslint-plugin": "^5.28.0",
-		"@typescript-eslint/parser": "^5.28.0",
+		"@typescript-eslint/eslint-plugin": "^5.29.0",
+		"@typescript-eslint/parser": "^5.29.0",
 		"colorette": "^2.0.19",
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "8.18.0",

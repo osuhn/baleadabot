@@ -35,12 +35,12 @@ export class UserCommand extends OsuCommand {
 		const { guild_id: guildId } = interaction;
 		if (args.focused !== 'username') return this.autocompleteNoResults();
 
-		if (!isNullishOrEmpty(guildId) && isNullishOrEmpty(args.username)) args.username = '2';
+		if (!isNullishOrEmpty(guildId) && isNullishOrEmpty(args.username)) args.username = 'chikoshidori';
 
 		const search = await searchForAnUser(args.username).catch(() => undefined);
 		if (!search) return this.autocompleteNoResults();
 
-		const choices = search.users.map(({ username: name, id: value }) => ({ name, value }));
+		const choices = search.users.map(({ username: name, id: value }) => ({ name, value: value.toString() }));
 
 		return this.autocomplete({ choices });
 	}
@@ -53,12 +53,23 @@ export class UserCommand extends OsuCommand {
 
 		if (!user)
 			return this.message({
-				embeds: [errorEmbed({ interaction, options: { description: resolveUserKey(interaction, LanguageKeys.UserNotFound) } })],
+				embeds: [errorEmbed({ description: resolveUserKey(interaction, LanguageKeys.UserNotFound) })],
 				flags: MessageFlags.Ephemeral
 			});
 
 		return this.message({
-			embeds: [successEmbed({ interaction, options: { thumbnail: { url: user.avatar_url }, description: `${user.username}'s stats` } })]
+			embeds: [
+				successEmbed({
+					author: {
+						name: `${user.username}: ${user.statistics.pp.toLocaleString()}pp (#${user.statistics.global_rank.toLocaleString()} ${
+							user.country_code
+						}${user.statistics.country_rank})`,
+						url: `https://osu.ppy.sh/u/${user.id}`,
+						icon_url: `https://assets.ppy.sh/old-flags/${user.country_code}.png`
+					},
+					thumbnail: { url: user.avatar_url }
+				})
+			]
 		});
 	}
 
