@@ -6,7 +6,7 @@ export abstract class OsuCommand extends Command {
 		super(context, options);
 	}
 
-	protected async fetchUser({ userId, mode }: OsuCommand.FetchUserOptions) {
+	protected fetchUser({ userId, mode }: OsuCommand.FetchUserOptions) {
 		return v2.user.get(userId, mode);
 	}
 }

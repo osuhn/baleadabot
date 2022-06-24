@@ -1,0 +1,11 @@
+{
+	"osuName": "osu",
+	"osuDescription": "Muestra las estadísticas de un usuario",
+	"osuExtendedDescription": "Este comando te mostrará las estadísticas del jugador indicado, si no indicas ninguna comprobaré si tienes un usuario en mi base de datos.",
+	"osuUsernameName": "username",
+	"osuUsernameDescription": "Nombre de usuario o id",
+	"osuModeName": "modalidad",
+	"osuModeDescription": "Modalidad",
+
+	"UserNotFound": "El usuario que ha introducido no existe."
+}

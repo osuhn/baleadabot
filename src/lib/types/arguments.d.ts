@@ -1,5 +1,5 @@
+import type { OsuUser } from '#lib/types/declarations/osu';
 import type { ArrayString, IntegerString } from '@skyra/env-utilities';
-import type { OsuUser } from './types/declarations/osu';
 
 declare module '@skyra/env-utilities' {
 	interface Env {
