@@ -1,5 +1,6 @@
 import { LanguageKeys } from '#lib/i18n/LanguageKeys';
 import { OsuCommand } from '#lib/structures/OsuCommand';
+import { apply } from '#lib/utils/add-builder-localizations';
 import { errorEmbed, successEmbed } from '#lib/utils/embeds';
 import { searchForAnUser } from '#lib/utils/osu';
 import { getGuilds } from '#lib/utils/util';
@@ -9,21 +10,16 @@ import { resolveUserKey } from '@skyra/http-framework-i18n';
 import { APIApplicationCommandAutocompleteInteraction, MessageFlags } from 'discord-api-types/v10';
 
 @RegisterCommand((builder) =>
-	builder
-		.setName('osu')
-		.setDescription('Display statics of an user')
+	apply(builder, LanguageKeys.Commands.Osu.OsuName, LanguageKeys.Commands.Osu.OsuDescription)
 		.setDMPermission(false)
-		.addStringOption((option) =>
-			option //
-				.setName('username')
-				.setDescription('username or id')
-				.setAutocomplete(true)
+		.addStringOption((input) =>
+			//
+			apply(input, LanguageKeys.Commands.Osu.OsuUsernameName, LanguageKeys.Commands.Osu.OsuUsernameDescription)
 		)
-		.addStringOption((option) =>
-			option
-				.setName('mode')
-				.setDescription('mode')
-				.setChoices(...UserCommand.modes.map((m) => ({ name: m, value: m })))
+		.addStringOption((input) =>
+			apply(input, LanguageKeys.Commands.Osu.OsuModeName, LanguageKeys.Commands.Osu.OsuModeDescription).setChoices(
+				...UserCommand.modes.map((m) => ({ name: m, value: m }))
+			)
 		)
 )
 @RestrictGuildIds(getGuilds())
@@ -53,7 +49,7 @@ export class UserCommand extends OsuCommand {
 
 		if (!user)
 			return this.message({
-				embeds: [errorEmbed({ description: resolveUserKey(interaction, LanguageKeys.UserNotFound) })],
+				embeds: [errorEmbed({ description: resolveUserKey(interaction, LanguageKeys.Commands.Osu.UserNotFound) })],
 				flags: MessageFlags.Ephemeral
 			});
 
@@ -78,7 +74,7 @@ export class UserCommand extends OsuCommand {
 
 interface Args {
 	username: string;
-	mode: OsuCommand.OsuModes;
+	mode?: OsuCommand.OsuModes;
 }
 
 type ArgsAutoComplete = Omit<Args, 'mode'>;

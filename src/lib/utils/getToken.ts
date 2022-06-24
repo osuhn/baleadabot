@@ -1,4 +1,4 @@
-import { FetchUserAgent } from '#lib/constants/constants';
+import { FetchUserAgent } from '#lib/common/constants';
 import { fetch, FetchMethods, FetchResultTypes } from '@sapphire/fetch';
 import { envParseString } from '@skyra/env-utilities';
 import { OAuth2Routes, type RESTPostOAuth2ClientCredentialsResult } from 'discord-api-types/v10';

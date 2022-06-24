@@ -44,5 +44,17 @@
 		"**/.yarn": true,
 		"**/dist/": true,
 		"**/.git/": true
-	}
+	},
+
+	// i18n
+	"i18n-ally.autoDetection": true,
+	"i18n-ally.localesPaths": ["src/languages"],
+	"i18n-ally.defaultNamespace": "common",
+	"i18n-ally.displayLanguage": "en-GB",
+	"i18n-ally.pathMatcher": "{locale}/{namespaces}.json",
+	"i18n-ally.namespace": true,
+	"i18n-ally.preferredDelimiter": ":",
+	"i18n-ally.enabledFrameworks": ["sapphire-i18next", "custom"],
+	"i18n-ally.regex.usageMatchAppend": ["[^\\w\\d]t|F?T\\(['\"`]({key})['\"`]"],
+	"i18n-ally.keystyle": "nested"
 }

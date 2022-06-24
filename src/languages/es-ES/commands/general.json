@@ -1,0 +1,4 @@
+{
+	"pingFailed": "Fallo en la recuperación del ping :(",
+	"pingPong": "¡Pong 🏓! (El viaje de ida y vuelta tomo: **{{diff, localeString}}**ms. Latido del corazón: **{{ping, localeString}}**ms."
+}

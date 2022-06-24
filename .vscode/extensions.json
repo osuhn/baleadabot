@@ -9,6 +9,7 @@
 		"Gruntfuggly.todo-tree",
 		"esbenp.prettier-vscode",
 		"bungcip.better-toml",
-		"be5invis.toml"
+		"be5invis.toml",
+		"mzato0001.sapphire-i18n-ally"
 	]
 }
