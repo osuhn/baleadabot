@@ -13,8 +13,7 @@ import { APIApplicationCommandAutocompleteInteraction, MessageFlags } from 'disc
 	apply(builder, LanguageKeys.Commands.Osu.OsuName, LanguageKeys.Commands.Osu.OsuDescription)
 		.setDMPermission(false)
 		.addStringOption((input) =>
-			//
-			apply(input, LanguageKeys.Commands.Osu.OsuUsernameName, LanguageKeys.Commands.Osu.OsuUsernameDescription)
+			apply(input, LanguageKeys.Commands.Osu.OsuUsernameName, LanguageKeys.Commands.Osu.OsuUsernameDescription).setAutocomplete(true)
 		)
 		.addStringOption((input) =>
 			apply(input, LanguageKeys.Commands.Osu.OsuModeName, LanguageKeys.Commands.Osu.OsuModeDescription).setChoices(
