@@ -11,10 +11,10 @@ export async function searchForAnUser(nameOrId: string): Promise<UsersFound> {
 	const result = await fetch<SearchResult>(`https://osu.ppy.sh/home/quick-search?query=${nameOrId}`, {
 		headers: {
 			Authorization: `Bearer ${cache_token}`,
-			'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36',
+			'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
 			'x-csrf-token': 'ztTI4lOTDo1ayUiRAAqs7Z8ZcO9F7BD21NP0rw5i',
 			cookie: envParseString('OSU_COOKIE'),
-			'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8'
+			'accept-language': 'en-GB,en;q=0.8'
 		}
 	});
 	if (!result.user) throw new Error('Not found');
