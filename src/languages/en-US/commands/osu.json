@@ -7,5 +7,9 @@
 	"osuModeName": "mode",
 	"osuModeDescription": "mode",
 
-	"UserNotFound": "The user you have entered does not exist."
+	"userNotFound": "The user you have entered does not exist.",
+	"rankedScore": "Ranked Score",
+	"accuracy": "Accuracy",
+	"maxCombo": "Max Combo",
+	"joinedOsu": "Joined osu! {{dateString, date}}"
 }

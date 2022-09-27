@@ -12,8 +12,7 @@ export abstract class OsuCommand extends Command {
 }
 
 export namespace OsuCommand {
-	export interface Options extends Command.Options {}
-
+	export type Options = Command.Options;
 	export type Interaction = Command.ChatInputInteraction;
 	export type AutoCompleteInteraction = Command.AutocompleteInteraction;
 

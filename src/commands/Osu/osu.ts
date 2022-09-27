@@ -3,7 +3,7 @@ import { LanguageKeys } from '#lib/i18n/LanguageKeys';
 import { OsuCommand } from '#lib/structures/OsuCommand';
 import { apply } from '#lib/utils/add-builder-localizations';
 import { errorEmbed, successEmbed } from '#lib/utils/embeds';
-import { searchForAnUser } from '#lib/utils/osu';
+import { searchUser } from '#lib/utils/osu';
 import { getGuilds } from '#lib/utils/util';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { AutocompleteInteractionArguments, RegisterCommand, RestrictGuildIds } from '@skyra/http-framework';
@@ -25,12 +25,11 @@ import { MessageFlags } from 'discord-api-types/v10';
 @RestrictGuildIds(getGuilds())
 export class UserCommand extends OsuCommand {
 	public override async autocompleteRun(interaction: OsuCommand.AutoCompleteInteraction, args: AutocompleteInteractionArguments<ArgsAutoComplete>) {
-		const { guild_id: guildId } = interaction;
 		if (args.focused !== 'username') return interaction.replyEmpty();
 
-		if (!isNullishOrEmpty(guildId) && isNullishOrEmpty(args.username)) args.username = 'chikoshidori';
+		if (isNullishOrEmpty(args.username)) args.username = 'chikoshidori';
 
-		const search = await searchForAnUser(args.username).catch(() => undefined);
+		const search = await searchUser(args.username).catch(() => undefined);
 		if (!search) return interaction.replyEmpty();
 
 		const choices = search.users.map(({ username: name, id: value }) => ({ name, value: value.toString() }));
@@ -41,11 +40,12 @@ export class UserCommand extends OsuCommand {
 	public override async chatInputRun(interaction: OsuCommand.Interaction, { username: userId, mode = 'osu' }: Args) {
 		const user = await this.fetchUser({ userId, mode });
 
-		if (!user)
+		if (!user) {
 			return interaction.reply({
 				embeds: [errorEmbed({ description: resolveUserKey(interaction, LanguageKeys.Commands.Osu.UserNotFound) })],
 				flags: MessageFlags.Ephemeral
 			});
+		}
 
 		return interaction.reply({
 			embeds: [
@@ -57,7 +57,29 @@ export class UserCommand extends OsuCommand {
 						url: `https://osu.ppy.sh/u/${user.id}`,
 						icon_url: getFlag(user.country_code)
 					},
-					thumbnail: { url: user.avatar_url }
+					fields: [
+						{
+							name: resolveUserKey(interaction, LanguageKeys.Commands.Osu.RankedScore),
+							value: user.statistics.ranked_score.toLocaleString(),
+							inline: true
+						},
+						{
+							name: resolveUserKey(interaction, LanguageKeys.Commands.Osu.Accuracy),
+							value: `${user.statistics.hit_accuracy.toFixed(2)}%`,
+							inline: true
+						},
+						{
+							name: resolveUserKey(interaction, LanguageKeys.Commands.Osu.MaxCombo),
+							value: user.statistics.maximum_combo.toLocaleString(),
+							inline: true
+						}
+					],
+					thumbnail: { url: user.avatar_url },
+					footer: {
+						text: resolveUserKey(interaction, LanguageKeys.Commands.Osu.JoinedOsu, {
+							date: new Date(user.join_date)
+						})
+					}
 				})
 			]
 		});

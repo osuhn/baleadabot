@@ -12,5 +12,9 @@ addFormatters(
 	{
 		name: 'localeString',
 		format: (value: number, lng?: string) => value.toLocaleString(lng)
+	},
+	{
+		name: 'dateString',
+		format: (value: Date, lng?: string) => new Date(value).toLocaleString(lng)
 	}
 );

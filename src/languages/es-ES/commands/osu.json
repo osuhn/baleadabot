@@ -7,5 +7,9 @@
 	"osuModeName": "modalidad",
 	"osuModeDescription": "Modalidad",
 
-	"UserNotFound": "El usuario que ha introducido no existe."
+	"userNotFound": "El usuario que ha introducido no existe.",
+	"rankedScore": "Puntuación clasificada",
+	"accuracy": "Precisión",
+	"maxCombo": "Combo máximo",
+	"joinedOsu": "Se unió a osu! {{dateString, date}}"
 }

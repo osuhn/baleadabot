@@ -7,7 +7,7 @@ import { cache_token } from 'osu-api-extended/dist/utility/auth.js';
  * @param {string} nameOrId - The name or id of the user you want to search for
  * @returns An array of users
  */
-export async function searchForAnUser(nameOrId: string): Promise<UsersFound> {
+export async function searchUser(nameOrId: string): Promise<UsersFound> {
 	const result = (
 		await Json<SearchResult>(
 			safeFetch(`https://osu.ppy.sh/home/quick-search?query=${nameOrId}`, {
