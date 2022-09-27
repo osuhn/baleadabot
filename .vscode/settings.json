@@ -7,21 +7,13 @@
 	},
 	"prettier.singleQuote": true,
 
-	// TypeScript stuff
 	"typescript.implementationsCodeLens.enabled": true,
-	"typescript.inlayHints.enumMemberValues.enabled": true,
-	"typescript.inlayHints.functionLikeReturnTypes.enabled": true,
-	"typescript.inlayHints.parameterNames.enabled": "literals",
-	"typescript.inlayHints.parameterTypes.enabled": true,
-	"typescript.inlayHints.propertyDeclarationTypes.enabled": true,
-	"typescript.inlayHints.variableTypes.enabled": false,
 	"typescript.referencesCodeLens.enabled": false,
 	"typescript.referencesCodeLens.showOnAllFunctions": true,
 	"typescript.suggest.completeFunctionCalls": true,
 	"typescript.preferences.importModuleSpecifier": "non-relative",
 	"typescript.tsdk": "node_modules\\typescript\\lib",
 
-	// Editor stuff
 	"editor.bracketPairColorization.enabled": true,
 	"editor.guides.bracketPairs": true,
 	"editor.guides.bracketPairsHorizontal": true,
@@ -36,6 +28,11 @@
 	"editor.useTabStops": false,
 	"editor.insertSpaces": false,
 	"editor.detectIndentation": true,
+	"editor.codeActionsOnSave": {
+		"source.organizeImports": true
+	},
+	"editor.inlayHints.enabled": "offUnlessPressed",
+
 	"files.eol": "\n",
 	"search.exclude": {
 		"**/node_modules": true,
@@ -46,15 +43,5 @@
 		"**/.git/": true
 	},
 
-	// i18n
-	"i18n-ally.autoDetection": true,
-	"i18n-ally.localesPaths": ["src/languages"],
-	"i18n-ally.defaultNamespace": "common",
-	"i18n-ally.displayLanguage": "en-GB",
-	"i18n-ally.pathMatcher": "{locale}/{namespaces}.json",
-	"i18n-ally.namespace": true,
-	"i18n-ally.preferredDelimiter": ":",
-	"i18n-ally.enabledFrameworks": ["sapphire-i18next", "custom"],
-	"i18n-ally.regex.usageMatchAppend": ["[^\\w\\d]t|F?T\\(['\"`]({key})['\"`]"],
-	"i18n-ally.keystyle": "nested"
+	"eslint.validate": ["typescript"]
 }

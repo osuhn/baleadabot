@@ -1,8 +1,8 @@
-import { getT, loadedLocales, TypedT } from '@skyra/http-framework-i18n';
-import type { LocalizationMap } from 'discord-api-types/v9';
+import { lazy } from '#lib/common/lazy';
 import { Collection } from '@discordjs/collection';
 import type { NonNullObject } from '@sapphire/utilities';
-import { lazy } from '#lib/common/lazy';
+import { getT, loadedLocales, TypedT } from '@skyra/http-framework-i18n';
+import type { LocalizationMap } from 'discord-api-types/v9';
 
 const getLocales = lazy(() => new Collection([...loadedLocales].map((locale) => [locale, getT(locale)])));
 

@@ -467,15 +467,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/fetch@npm:^2.4.1":
-  version: 2.4.1
-  resolution: "@sapphire/fetch@npm:2.4.1"
-  dependencies:
-    cross-fetch: ^3.1.5
-  checksum: f8ab0baa59dfcb931729a46957073e4e26377b6b5e3bdbbed921ae793c0848a240545ed157efd5db13342d68eed84dc73c6fe83038a5e62af9daa3715326c4a9
-  languageName: node
-  linkType: hard
-
 "@sapphire/pieces@npm:^3.5.1":
   version: 3.5.1
   resolution: "@sapphire/pieces@npm:3.5.1"
@@ -484,16 +475,6 @@ __metadata:
     "@sapphire/utilities": ^3.9.2
     tslib: ^2.4.0
   checksum: 200ff646f7e49d542f16779587ea373f9a7a032686ecc0fdf5948e185d009f2cd365dfb6d77793daaad9c8f97bc2d0932dad46cee04a6b4483f0cb32dd971760
-  languageName: node
-  linkType: hard
-
-"@sapphire/plugin-hmr@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@sapphire/plugin-hmr@npm:2.0.0"
-  dependencies:
-    chokidar: ^3.5.3
-    tslib: 2.x
-  checksum: 6b32edd578ae371dad8ecb9bd01cb1cc3cb12628c48da46a4ba7ce3fecd3a3e5ff5344992f7df34e3cc6530440279b312131f8329762d3e33c4282f4d97d688b
   languageName: node
   linkType: hard
 
@@ -591,6 +572,15 @@ __metadata:
   dependencies:
     tslib: ^2.4.0
   checksum: 2f94a15203c4b1815a085daaee30ec06b6326648766dfded1164e257969ea269be466f0ad2cd578f2f7c7a7c613a74d35bd60d406c47f50aa23f82f9e079dee4
+  languageName: node
+  linkType: hard
+
+"@skyra/safe-fetch@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@skyra/safe-fetch@npm:1.0.1"
+  dependencies:
+    "@sapphire/result": ^2.4.1
+  checksum: b0ff828c5bf6e4b6bddc47424a9557af835e52e13616b2e87df60abed39d354bd1e4a95b489f794a1fb598a1b1c3227bb697bb027cfe7959ab9c38d153b73535
   languageName: node
   linkType: hard
 
@@ -1101,8 +1091,6 @@ __metadata:
     "@discordjs/builders": 1.2.0
     "@discordjs/collection": ^1.1.0
     "@sapphire/eslint-config": ^4.3.8
-    "@sapphire/fetch": ^2.4.1
-    "@sapphire/plugin-hmr": ^2.0.0
     "@sapphire/prettier-config": ^1.4.4
     "@sapphire/result": ^2.4.1
     "@sapphire/ts-config": ^3.3.4
@@ -1110,6 +1098,7 @@ __metadata:
     "@skyra/env-utilities": ^1.0.2
     "@skyra/http-framework": ^0.11.1
     "@skyra/http-framework-i18n": ^0.3.5
+    "@skyra/safe-fetch": ^1.0.1
     "@skyra/start-banner": ^1.0.2
     "@types/gradient-string": ^1.1.2
     "@types/node": ^18.7.18
@@ -1337,7 +1326,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:^3.5.1, chokidar@npm:^3.5.3":
+"chokidar@npm:^3.5.1":
   version: 3.5.3
   resolution: "chokidar@npm:3.5.3"
   dependencies:
@@ -1812,15 +1801,6 @@ __metadata:
   version: 1.1.1
   resolution: "create-require@npm:1.1.1"
   checksum: a9a1503d4390d8b59ad86f4607de7870b39cad43d929813599a23714831e81c520bddf61bcdd1f8e30f05fd3a2b71ae8538e946eb2786dc65c2bbc520f692eff
-  languageName: node
-  linkType: hard
-
-"cross-fetch@npm:^3.1.5":
-  version: 3.1.5
-  resolution: "cross-fetch@npm:3.1.5"
-  dependencies:
-    node-fetch: 2.6.7
-  checksum: f6b8c6ee3ef993ace6277fd789c71b6acf1b504fd5f5c7128df4ef2f125a429e29cd62dc8c127523f04a5f2fa4771ed80e3f3d9695617f441425045f505cf3bb
   languageName: node
   linkType: hard
 
@@ -4228,7 +4208,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.7, node-fetch@npm:^2.6.7":
+"node-fetch@npm:^2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
   dependencies:
@@ -5756,17 +5736,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.x, tslib@npm:^2.1.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "tslib@npm:2.4.0"
-  checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
-  languageName: node
-  linkType: hard
-
 "tslib@npm:^1.8.1":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.1.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "tslib@npm:2.4.0"
+  checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
   languageName: node
   linkType: hard
 

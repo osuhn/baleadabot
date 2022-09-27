@@ -1,12 +1,12 @@
 import '#lib/setup';
-import { Client, container } from '@skyra/http-framework';
 import { envParseInteger, envParseString, setup } from '@skyra/env-utilities';
-import { load, init } from '@skyra/http-framework-i18n';
+import { Client, container } from '@skyra/http-framework';
+import { init, load } from '@skyra/http-framework-i18n';
 // import { registerCommands } from '#lib/utils/registerCommands';
 import { createBanner } from '@skyra/start-banner';
 import { blue } from 'colorette';
-import { auth } from 'osu-api-extended';
 import gradient from 'gradient-string';
+import { auth } from 'osu-api-extended';
 
 setup(new URL('../src/.env', import.meta.url));
 await load(new URL('../src/languages', import.meta.url));
