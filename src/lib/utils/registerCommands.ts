@@ -1,6 +1,6 @@
+import { getBearerToken } from '#lib/utils/getToken';
 import { envParseString } from '@skyra/env-utilities';
 import { Registry } from '@skyra/http-framework';
-import { getBearerToken } from '#lib/utils/getToken';
 
 export async function registerCommands() {
 	const token = await getBearerToken();

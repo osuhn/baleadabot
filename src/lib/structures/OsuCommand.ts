@@ -6,17 +6,15 @@ export abstract class OsuCommand extends Command {
 		super(context, options);
 	}
 
-	protected async fetchUser({ userId, mode }: OsuCommand.FetchUserOptions) {
+	protected fetchUser({ userId, mode }: OsuCommand.FetchUserOptions) {
 		return v2.user.get(userId, mode);
 	}
 }
 
 export namespace OsuCommand {
-	export interface Options extends Command.Options {}
-
-	export type Interaction = Command.Interaction;
-	export type Response = Command.Response;
-	export type MessageResponseResult = Command.MessageResponseResult;
+	export type Options = Command.Options;
+	export type Interaction = Command.ChatInputInteraction;
+	export type AutoCompleteInteraction = Command.AutocompleteInteraction;
 
 	export interface FetchUserOptions {
 		userId: string;

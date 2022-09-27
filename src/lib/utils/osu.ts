@@ -1,17 +1,26 @@
-import { fetch } from '@sapphire/fetch';
 import { envParseString } from '@skyra/env-utilities';
+import { Json, safeFetch } from '@skyra/safe-fetch';
 import { cache_token } from 'osu-api-extended/dist/utility/auth.js';
 
-export async function searchForAnUser(nameOrId: string): Promise<UsersFound> {
-	const result = await fetch<SearchResult>(`https://osu.ppy.sh/home/quick-search?query=${nameOrId}`, {
-		headers: {
-			Authorization: `Bearer ${cache_token}`,
-			'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36',
-			'x-csrf-token': 'ztTI4lOTDo1ayUiRAAqs7Z8ZcO9F7BD21NP0rw5i',
-			cookie: envParseString('OSU_COOKIE'),
-			'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8'
-		}
-	});
+/**
+ * It searches for an user by name or id and returns the user's information
+ * @param {string} nameOrId - The name or id of the user you want to search for
+ * @returns An array of users
+ */
+export async function searchUser(nameOrId: string): Promise<UsersFound> {
+	const result = (
+		await Json<SearchResult>(
+			safeFetch(`https://osu.ppy.sh/home/quick-search?query=${nameOrId}`, {
+				headers: {
+					Authorization: `Bearer ${cache_token}`,
+					'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+					'x-csrf-token': 'ztTI4lOTDo1ayUiRAAqs7Z8ZcO9F7BD21NP0rw5i',
+					cookie: envParseString('OSU_COOKIE'),
+					'accept-language': 'en-GB,en;q=0.8'
+				}
+			})
+		)
+	).unwrap();
 	if (!result.user) throw new Error('Not found');
 
 	return result.user;

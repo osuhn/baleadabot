@@ -1,46 +1,31 @@
-import { Client } from '@skyra/http-framework';
+import '#lib/setup';
 import { envParseInteger, envParseString, setup } from '@skyra/env-utilities';
-import { load, init, addFormatters } from '@skyra/http-framework-i18n';
-import type { PathLike } from 'fs';
-import { registerCommands } from '#lib/utils/registerCommands';
+import { Client, container } from '@skyra/http-framework';
+import { init, load } from '@skyra/http-framework-i18n';
+// import { registerCommands } from '#lib/utils/registerCommands';
 import { createBanner } from '@skyra/start-banner';
 import { blue } from 'colorette';
+import gradient from 'gradient-string';
 import { auth } from 'osu-api-extended';
 
-const main = async () => {
-	setup(new URL('../src/.env', import.meta.url));
-	await load(new URL('../src/languages', import.meta.url) as PathLike);
+setup(new URL('../src/.env', import.meta.url));
+await load(new URL('../src/languages', import.meta.url));
 
-	const client = new Client({
-		discordPublicKey: envParseString('DISCORD_PUBLIC_KEY')
-	});
+await init({ fallbackLng: 'en-GB', returnNull: false, returnEmptyString: false, returnObjects: true });
+await auth.login(envParseInteger('OSU_CLIENT_ID'), envParseString('OSU_CLIENT_SECRET'));
 
-	void addFormatters(
-		{
-			name: 'uppercase',
-			format: (value: string) => value.toUpperCase()
-		},
-		{
-			name: 'lowercase',
-			format: (value: string) => value.toLowerCase()
-		},
-		{
-			name: 'localeString',
-			format: (value: number, lng: string | undefined) => value.toLocaleString(lng)
-		}
-	);
+const client = new Client().on('error', (error) => console.error(error));
+await client.load();
 
-	await init();
-	await auth.login(envParseInteger('OSU_CLIENT_ID'), envParseString('OSU_CLIENT_SECRET'));
-	await client.load();
-	void registerCommands();
+// registerCommands();
 
-	const address = envParseString('HTTP_ADDRESS', '0.0.0.0');
-	const port = envParseInteger('HTTP_PORT', 3000);
+const address = envParseString('HTTP_ADDRESS', '0.0.0.0');
+const port = envParseInteger('HTTP_PORT', 3000);
 
-	await client.listen({ address, port });
+await client.listen({ address, port });
 
-	console.log(
+console.log(
+	gradient.vice.multiline(
 		createBanner({
 			name: [
 				blue(String.raw`  ____        _                _       `),
@@ -50,9 +35,12 @@ const main = async () => {
 				blue(String.raw` |____/ \__,_|_|\___|\__,_|\__,_|\__,_|`),
 				blue(String.raw`                                       `)
 			],
-			extra: [`Listening on ${address}:${port}`]
+			extra: [
+				'',
+				`Loaded: ${container.stores.get('commands').size} commands`,
+				`      : ${container.stores.get('interaction-handlers').size} interaction handlers`,
+				`Listening on ${address}:${port}`
+			]
 		})
-	);
-};
-
-void main();
+	)
+);

@@ -1,79 +1,84 @@
+import { getFlag } from '#lib/common/osu';
 import { LanguageKeys } from '#lib/i18n/LanguageKeys';
 import { OsuCommand } from '#lib/structures/OsuCommand';
+import { apply } from '#lib/utils/add-builder-localizations';
 import { errorEmbed, successEmbed } from '#lib/utils/embeds';
-import { searchForAnUser } from '#lib/utils/osu';
+import { searchUser } from '#lib/utils/osu';
 import { getGuilds } from '#lib/utils/util';
-import { Awaitable, isNullishOrEmpty } from '@sapphire/utilities';
+import { isNullishOrEmpty } from '@sapphire/utilities';
 import { AutocompleteInteractionArguments, RegisterCommand, RestrictGuildIds } from '@skyra/http-framework';
 import { resolveUserKey } from '@skyra/http-framework-i18n';
-import { APIApplicationCommandAutocompleteInteraction, APIApplicationCommandAutocompleteResponse, MessageFlags } from 'discord-api-types/v10';
+import { MessageFlags } from 'discord-api-types/v10';
 
 @RegisterCommand((builder) =>
-	builder
-		.setName('osu')
-		.setDescription('Display statics of an user')
-		.addStringOption((option) => option.setName('username').setDescription('username or id').setAutocomplete(true))
-		.addStringOption((option) =>
-			option
-				.setName('mode')
-				.setDescription('mode')
-				.setChoices(...UserCommand.modes.map((m) => ({ name: m, value: m })))
+	apply(builder, LanguageKeys.Commands.Osu.OsuName, LanguageKeys.Commands.Osu.OsuDescription)
+		.setDMPermission(false)
+		.addStringOption((input) =>
+			apply(input, LanguageKeys.Commands.Osu.OsuUsernameName, LanguageKeys.Commands.Osu.OsuUsernameDescription).setAutocomplete(true)
+		)
+		.addStringOption((input) =>
+			apply(input, LanguageKeys.Commands.Osu.OsuModeName, LanguageKeys.Commands.Osu.OsuModeDescription).setChoices(
+				...UserCommand.modes.map((m) => ({ name: m, value: m }))
+			)
 		)
 )
 @RestrictGuildIds(getGuilds())
 export class UserCommand extends OsuCommand {
-	public override async autocompleteRun(
-		interaction: APIApplicationCommandAutocompleteInteraction,
-		args: AutocompleteInteractionArguments<ArgsAutoComplete>
-	) {
-		const { guild_id: guildId } = interaction;
+	public override async autocompleteRun(interaction: OsuCommand.AutoCompleteInteraction, args: AutocompleteInteractionArguments<ArgsAutoComplete>) {
+		if (args.focused !== 'username') return interaction.replyEmpty();
 
-		const options: Record<keyof ArgsAutoComplete, () => Awaitable<APIApplicationCommandAutocompleteResponse>> = {
-			username: async (): Promise<APIApplicationCommandAutocompleteResponse> => {
-				if (!isNullishOrEmpty(guildId) && isNullishOrEmpty(args.username)) {
-					args.username = '2';
-				}
+		if (isNullishOrEmpty(args.username)) args.username = 'chikoshidori';
 
-				const search = await searchForAnUser(args.username).catch(() => undefined);
-				if (!search) return this.autocompleteNoResults();
+		const search = await searchUser(args.username).catch(() => undefined);
+		if (!search) return interaction.replyEmpty();
 
-				const choices = search.users.map(({ username: name, id: value }) => ({ name, value }));
+		const choices = search.users.map(({ username: name, id: value }) => ({ name, value: value.toString() }));
 
-				return this.autocomplete({ choices });
-			}
-		};
-
-		const selected = options[args.focused!];
-		const result = selected ? await selected() : this.autocompleteNoResults();
-
-		return result;
+		return interaction.reply({ choices });
 	}
 
-	public override async chatInputRun(
-		interaction: OsuCommand.Interaction,
-		{ username: userId, mode = 'osu' }: Args
-	): Promise<OsuCommand.MessageResponseResult> {
+	public override async chatInputRun(interaction: OsuCommand.Interaction, { username: userId, mode = 'osu' }: Args) {
 		const user = await this.fetchUser({ userId, mode });
 
-		if (!user)
-			return this.message({
-				embeds: [
-					errorEmbed({
-						interaction,
-						options: {
-							description: resolveUserKey(interaction, LanguageKeys.UserNotFound)
-						}
-					})
-				],
+		if (!user) {
+			return interaction.reply({
+				embeds: [errorEmbed({ description: resolveUserKey(interaction, LanguageKeys.Commands.Osu.UserNotFound) })],
 				flags: MessageFlags.Ephemeral
 			});
+		}
 
-		return this.message({
+		return interaction.reply({
 			embeds: [
 				successEmbed({
-					interaction,
-					options: {
-						description: `${user.username}'s stats`
+					author: {
+						name: `${user.username}: ${user.statistics.pp.toLocaleString()}pp (#${user.statistics.global_rank.toLocaleString()} ${
+							user.country_code
+						}${user.statistics.country_rank})`,
+						url: `https://osu.ppy.sh/u/${user.id}`,
+						icon_url: getFlag(user.country_code)
+					},
+					fields: [
+						{
+							name: resolveUserKey(interaction, LanguageKeys.Commands.Osu.RankedScore),
+							value: user.statistics.ranked_score.toLocaleString(),
+							inline: true
+						},
+						{
+							name: resolveUserKey(interaction, LanguageKeys.Commands.Osu.Accuracy),
+							value: `${user.statistics.hit_accuracy.toFixed(2)}%`,
+							inline: true
+						},
+						{
+							name: resolveUserKey(interaction, LanguageKeys.Commands.Osu.MaxCombo),
+							value: user.statistics.maximum_combo.toLocaleString(),
+							inline: true
+						}
+					],
+					thumbnail: { url: user.avatar_url },
+					footer: {
+						text: resolveUserKey(interaction, LanguageKeys.Commands.Osu.JoinedOsu, {
+							date: new Date(user.join_date)
+						})
 					}
 				})
 			]
@@ -85,7 +90,7 @@ export class UserCommand extends OsuCommand {
 
 interface Args {
 	username: string;
-	mode: OsuCommand.OsuModes;
+	mode?: OsuCommand.OsuModes;
 }
 
 type ArgsAutoComplete = Omit<Args, 'mode'>;
