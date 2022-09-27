@@ -11,5 +11,5 @@
 	"rankedScore": "Puntuación clasificada",
 	"accuracy": "Precisión",
 	"maxCombo": "Combo máximo",
-	"joinedOsu": "Se unió a osu! {{dateString, date}}"
+	"joinedOsu": "Se unió a osu! {{date, dateString}}"
 }

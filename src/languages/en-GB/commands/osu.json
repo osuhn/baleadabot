@@ -11,5 +11,5 @@
 	"rankedScore": "Ranked Score",
 	"accuracy": "Accuracy",
 	"maxCombo": "Max Combo",
-	"joinedOsu": "Joined osu! {{dateString, date}}"
+	"joinedOsu": "Joined osu! {{date, dateString}}"
 }
