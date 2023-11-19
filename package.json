@@ -30,7 +30,7 @@
 		"@sapphire/result": "^1.1.1",
 		"@sapphire/utilities": "^3.7.0",
 		"@skyra/env-utilities": "^1.0.1",
-		"@skyra/http-framework": "^0.3.7",
+		"@skyra/http-framework": "^1.2.2",
 		"@skyra/http-framework-i18n": "^0.1.2",
 		"@skyra/start-banner": "^1.0.1",
 		"discord-api-types": "^0.32.1",
