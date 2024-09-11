@@ -38,8 +38,8 @@
 		"osu-api-extended": "^2.1.5"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^17.0.2",
-		"@commitlint/config-conventional": "^17.0.2",
+		"@commitlint/cli": "^19.5.0",
+		"@commitlint/config-conventional": "^19.5.0",
 		"@sapphire/eslint-config": "^4.3.7",
 		"@sapphire/plugin-hmr": "^1.2.0",
 		"@sapphire/prettier-config": "^1.4.3",
